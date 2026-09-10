@@ -4,6 +4,8 @@ A first-person browser game inspired by Stanford GSB’s Arbuckle Dining Pavilio
 
 ![The cafeteria, with the salad island in front of the grill, corn, and sushi counters](docs/gameplay.png)
 
+Read the [original prompt and design conversation](docs/design-conversation.md) for the initial request and the answers that shaped the game.
+
 ## Install and launch
 
 You need a desktop or laptop, a keyboard, and a browser with WebGL 2 support. The game has been tested in Google Chrome on macOS. A mouse or trackpad provides manual scooping; keyboard alternatives are also available. Touchscreen-only play is not implemented.
