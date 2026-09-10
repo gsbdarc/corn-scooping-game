@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8c1515" />
+    <meta
+      name="description"
+      content="A little lunch at Arbuckle. Explore a 3D Stanford GSB cafeteria, scoop corn, and check out with Lilybeth."
+    />
+    <title>A Little Lunch at Arbuckle</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <canvas id="world" aria-label="3D Arbuckle cafeteria"></canvas>
+    <div id="vignette"></div>
+    <header id="brand">
+      <span class="brand-mark">a.</span>
+      <div>ARBUCKLE<span>STANFORD · GRADUATE SCHOOL OF BUSINESS</span></div>
+    </header>
+    <div id="top-actions">
+      <span class="day">☀ &nbsp; A sunny lunch break</span
+      ><button
+        id="sound"
+        class="icon-button"
+        aria-label="Mute interaction sounds"
+        title="Toggle sounds"
+      >
+        ♪</button
+      ><button
+        id="help"
+        class="icon-button"
+        aria-label="Open controls"
+        title="Controls"
+      >
+        ?
+      </button>
+    </div>
+    <main id="welcome" class="intro">
+      <div class="eyebrow"><span></span> A CAMPUS LUNCH SIMULATION</div>
+      <h1>A little lunch<br />at <em>Arbuckle.</em></h1>
+      <p class="lede">
+        A familiar place. A plate of possibilities.<br />And always, a friendly
+        face at checkout.
+      </p>
+      <div class="lunch-ticket">
+        <div>
+          <small>YOUR LUNCH BUDGET</small><strong>$18<span>.00</span></strong>
+        </div>
+        <div class="ticket-rule"></div>
+        <div>
+          <small>YOUR ONLY MISSION</small
+          ><span>Make a meal.<br />Leave satisfied.</span>
+        </div>
+      </div>
+      <button id="start" class="primary" disabled>
+        <span id="start-label">Setting the table…</span><span>↗</span>
+      </button>
+      <p class="intro-hint">Take your time. There’s no bell to beat.</p>
+      <div class="intro-controls">
+        <span><kbd>W A S D</kbd> Walk</span
+        ><span><kbd>MOUSE</kbd> Look & scoop</span
+        ><span><kbd>E</kbd> Interact</span>
+      </div>
+    </main>
+    <div id="welcome-note">
+      <span class="live-dot"></span> THE DOORS ARE OPEN<span
+        class="note-separator"
+        >/</span
+      >
+      KNIGHT MANAGEMENT CENTER
+    </div>
+    <div id="hud" hidden>
+      <section class="status-card">
+        <div class="status-row">
+          <span>YOUR LUNCH</span
+          ><span id="spent">$0.00 <small>/ $18.00</small></span>
+        </div>
+        <div class="status-row fullness-row">
+          <span id="hunger-label">A little hungry</span
+          ><span id="fullness">0 / 80</span>
+        </div>
+        <div class="meter"><span id="hunger-fill"></span><i></i></div>
+        <p id="objective">Build a satisfying meal within $18.</p>
+      </section>
+      <div id="crosshair"><i></i></div>
+      <div id="prompt" hidden>
+        <span class="prompt-tag" id="prompt-tag">FOOD STATION</span
+        ><strong id="prompt-title"></strong
+        ><span id="prompt-action"><kbd>E</kbd> Explore the menu</span>
+      </div>
+      <div id="bottom-bar">
+        <span><kbd>W A S D</kbd> Walk</span><span><kbd>← →</kbd> Turn</span
+        ><span><kbd>E</kbd> Interact</span><span><kbd>Tab</kbd> Your plate</span
+        ><span><kbd>Esc</kbd> Pause</span>
+      </div>
+      <div id="map-card">
+        <div>AROUND ARBUCKLE <span>N ↑</span></div>
+        <canvas
+          id="map"
+          width="340"
+          height="270"
+          aria-label="Cafeteria map"
+        ></canvas
+        ><small>You are here <span class="map-dot"></span></small>
+      </div>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div id="overlay" hidden></div>
+    <section id="scoop-ui" hidden>
+      <div class="scoop-top">
+        <span class="eyebrow">THE SIMPLE JOY OF A GOOD SCOOP</span>
+        <h2>Sweet buttered corn</h2>
+        <p>$1.50 per scoop · +15 satisfaction if it all lands</p>
+      </div>
+      <div class="scoop-instructions">
+        <span id="scoop-step">1</span>
+        <div>
+          <strong id="scoop-instruction"
+            >Move over the corn. Hold to dip.</strong
+          ><small id="scoop-detail"
+            >Move your mouse to guide the scoop. Hold the mouse button to lower
+            it.</small
+          >
+        </div>
+      </div>
+      <div class="scoop-bottom">
+        <button id="leave-corn" class="secondary">
+          ← Back to the cafeteria <kbd>E</kbd></button
+        ><span id="scoop-counter">0 scoops · $0.00</span>
+      </div>
+    </section>
+    <div id="fatal" hidden>
+      <h1>The cafeteria couldn’t open.</h1>
+      <p id="fatal-message"></p>
+      <button onclick="location.reload()">Try again</button>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

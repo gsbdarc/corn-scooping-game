@@ -1,0 +1,1058 @@
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/assets/fonts/dm-sans-regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 550 700;
+  font-display: swap;
+  src: url("/assets/fonts/dm-sans-semibold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Libre Caslon Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/libre-caslon-display.ttf") format("truetype");
+}
+:root {
+  font-family:
+    "DM Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  color: #292b22;
+  background: #d8c6a4;
+  font-synthesis: none;
+  --red: #8c1515;
+  --cream: #fffaf0;
+  --muted: #757668;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #d69b41;
+  outline-offset: 4px;
+}
+[hidden] {
+  display: none !important;
+}
+#world {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(251, 248, 236, 0.98),
+      rgba(251, 248, 236, 0.92) 21%,
+      rgba(251, 248, 236, 0.3) 47%,
+      transparent 69%
+    ),
+    linear-gradient(0deg, rgba(25, 29, 21, 0.32), transparent 20%);
+}
+#brand {
+  position: fixed;
+  top: 30px;
+  left: 38px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  z-index: 10;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  color: #2d372b;
+}
+#brand .brand-mark {
+  font-family: Georgia, serif;
+  letter-spacing: -0.08em;
+  font-size: 38px;
+  color: var(--red);
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #8c15152e;
+  border-radius: 50%;
+  text-align: center;
+  padding-right: 4px;
+}
+#brand div > span {
+  display: block;
+  font-size: 8px;
+  font-weight: 550;
+  letter-spacing: 0.13em;
+  margin-top: 7px;
+}
+#top-actions {
+  position: fixed;
+  top: 30px;
+  right: 35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 40;
+}
+.day {
+  font-size: 12px;
+  background: #fffaf0e6;
+  padding: 13px 17px;
+  border: 1px solid #fff8;
+  border-radius: 24px;
+}
+.icon-button {
+  border: 1px solid #fff9;
+  background: #fffaf0ed;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #364332;
+  font-size: 18px;
+}
+.intro {
+  position: fixed;
+  left: 7%;
+  top: 50%;
+  transform: translateY(-46%);
+  width: 425px;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #71664a;
+}
+.eyebrow > span {
+  width: 23px;
+  height: 1px;
+  background: #a2884f;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1 {
+  font-family: "Libre Caslon Display", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(65px, 6.5vw, 94px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 25px 0;
+}
+h1 em {
+  font-weight: 400;
+  color: var(--red);
+}
+.lede {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #65685b;
+}
+.lunch-ticket {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  margin: 30px 0;
+}
+.lunch-ticket small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.11em;
+  color: #7a7d6f;
+  margin-bottom: 9px;
+}
+.lunch-ticket strong {
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+}
+.lunch-ticket strong span {
+  font-size: 24px;
+}
+.lunch-ticket div > span {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.ticket-rule {
+  height: 56px;
+  width: 1px;
+  background: #d5d4c5;
+}
+.primary {
+  border: 0;
+  background: var(--red);
+  color: var(--cream);
+  padding: 18px 23px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 550;
+  min-width: 215px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.primary:hover {
+  background: #6e0f12;
+  transform: translateY(-1px);
+}
+.primary > span:last-child {
+  font-size: 21px;
+}
+.intro .primary {
+  width: 295px;
+}
+.intro-hint {
+  font-size: 10px;
+  color: #848577;
+  margin-top: 13px;
+}
+.intro-controls {
+  margin-top: 33px;
+  display: flex;
+  gap: 18px;
+  font-size: 9px;
+  color: #646b60;
+  align-items: center;
+  white-space: nowrap;
+}
+.intro-controls span {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+kbd {
+  font:
+    500 9px "DM Sans",
+    sans-serif;
+  letter-spacing: 0.04em;
+  border: 1px solid #83897548;
+  border-radius: 3px;
+  min-width: 21px;
+  padding: 4px 6px;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 0 1px 0 #56624a22;
+  background: #fffffa55;
+}
+#welcome-note {
+  position: fixed;
+  bottom: 29px;
+  left: 38px;
+  color: #ffffed;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-shadow: 0 1px 5px #2228;
+}
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c6d394;
+}
+.note-separator {
+  margin: 0 12px;
+  opacity: 0.4;
+}
+.playing #vignette {
+  background: linear-gradient(
+    0deg,
+    #101b2440,
+    transparent 15%,
+    transparent 90%,
+    #101b2420
+  );
+}
+.playing #brand {
+  background: #fffaf0eb;
+  padding: 11px 16px;
+  border-radius: 7px;
+  top: 20px;
+  left: 20px;
+  font-size: 12px;
+  gap: 10px;
+}
+.playing #brand .brand-mark {
+  font-size: 31px;
+  width: 34px;
+  height: 34px;
+}
+.playing #brand div > span {
+  font-size: 7px;
+}
+.playing #top-actions {
+  top: 23px;
+  right: 20px;
+}
+.playing .day {
+  display: none;
+}
+.status-card {
+  position: fixed;
+  right: 20px;
+  top: 83px;
+  width: 245px;
+  padding: 19px 20px;
+  background: #fffaf0ed;
+  backdrop-filter: blur(10px);
+  border: 1px solid #fff8;
+  border-radius: 7px;
+}
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.status-row > span:last-child {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.status-row small {
+  font-size: 10px;
+  color: #86877c;
+  font-weight: 400;
+}
+.fullness-row {
+  margin-top: 19px;
+  font-size: 11px;
+  letter-spacing: 0;
+  color: #656d57;
+}
+.fullness-row > span:last-child {
+  font-size: 10px;
+  font-weight: 400;
+}
+.meter {
+  margin-top: 8px;
+  position: relative;
+  height: 5px;
+  background: #e4e5d9;
+  border-radius: 5px;
+}
+.meter > span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: #76865b;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+.meter i {
+  position: absolute;
+  left: 80%;
+  width: 1px;
+  height: 9px;
+  top: -2px;
+  background: #4c5f3a;
+}
+.status-card p {
+  font-size: 10px;
+  margin-top: 10px;
+  color: #8b8a7a;
+}
+#crosshair {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ffffff7a;
+  border-radius: 50%;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+#crosshair i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 3px #222;
+}
+#prompt {
+  position: fixed;
+  left: 50%;
+  bottom: 113px;
+  transform: translateX(-50%);
+  background: #fffaf0ed;
+  border: 1px solid #fff8;
+  border-radius: 7px;
+  padding: 15px 24px;
+  min-width: 235px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.prompt-tag {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: #9b813b;
+}
+#prompt strong {
+  display: block;
+  font:
+    27px "Libre Caslon Display",
+    Georgia,
+    serif;
+  margin: 5px 0 8px;
+}
+#prompt-action {
+  font-size: 11px;
+  color: #6a705e;
+}
+#prompt kbd {
+  margin-right: 7px;
+}
+#bottom-bar {
+  position: fixed;
+  bottom: 23px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #fffced;
+  font-size: 10px;
+}
+#bottom-bar kbd {
+  color: #fff;
+  background: #27332460;
+  border-color: #fff4;
+  margin-right: 5px;
+}
+#map-card {
+  position: fixed;
+  bottom: 22px;
+  right: 20px;
+  background: #fffaf0ed;
+  border: 1px solid #fff9;
+  border-radius: 6px;
+  width: 188px;
+  padding: 13px 12px 10px;
+}
+#map-card > div {
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+  color: #707660;
+}
+#map {
+  width: 164px;
+  height: 130px;
+  display: block;
+  margin-top: 8px;
+}
+#map-card small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 8px;
+  color: #727969;
+}
+.map-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #8c1515;
+  border-radius: 50%;
+}
+#toast {
+  position: fixed;
+  top: 96px;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  background: #253326ef;
+  color: #fffbee;
+  border: 1px solid #ffffff24;
+  padding: 13px 22px;
+  font-size: 12px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 55;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  max-width: 80%;
+  text-align: center;
+}
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: #17251c55;
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  padding: 20px;
+}
+.panel {
+  width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 24px 100px #17261755;
+  position: relative;
+}
+#overlay[data-mode="checkout"],
+#overlay[data-mode="queue"] {
+  background: linear-gradient(90deg, transparent 30%, #17251c55);
+  backdrop-filter: none;
+  justify-content: flex-end;
+  padding-right: 5vw;
+}
+#overlay[data-mode="checkout"] .panel,
+#overlay[data-mode="queue"] .panel {
+  width: 420px;
+}
+.panel h2 {
+  font:
+    44px/1.05 "Libre Caslon Display",
+    Georgia,
+    serif;
+  margin: 10px 0;
+}
+.panel .sub {
+  font-size: 12px;
+  color: #7c806f;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.close {
+  position: absolute;
+  top: 18px;
+  right: 19px;
+  border: 0;
+  background: none;
+  color: #7a8170;
+  font-size: 25px;
+}
+.menu-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid #deded0;
+}
+.food-icon {
+  font-size: 29px;
+  min-width: 38px;
+  filter: saturate(0.8);
+}
+.menu-item > div {
+  flex: 1;
+}
+.menu-item strong {
+  font-size: 13px;
+  display: block;
+}
+.menu-item p {
+  font-size: 11px;
+  color: #858674;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+.menu-item small {
+  color: #718050;
+  font-size: 10px;
+}
+.menu-item button {
+  border: 1px solid #dfddc9;
+  color: #394331;
+  border-radius: 4px;
+  background: #f5f0df;
+  padding: 10px 13px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.menu-item button:hover {
+  background: #e9e4cf;
+}
+.menu-item button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.panel-footer {
+  border-top: 1px solid #deded0;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #6d755c;
+}
+.secondary {
+  border: 1px solid #d0d0bd;
+  background: #fffaf0;
+  color: #4d5641;
+  padding: 13px 18px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.secondary:hover {
+  background: #ebeada;
+}
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  align-items: center;
+}
+.button-row .primary {
+  flex: 1;
+}
+.plate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e4d5;
+  padding: 13px 0;
+  font-size: 12px;
+}
+.plate-row small {
+  display: block;
+  color: #949580;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.remove {
+  border: 0;
+  background: none;
+  color: #9c593e;
+  padding: 5px 8px;
+  font-size: 11px;
+}
+.dialogue {
+  background: #eeeedf;
+  border-left: 3px solid #959f70;
+  padding: 17px 19px;
+  font:
+    25px/1.25 "Libre Caslon Display",
+    Georgia,
+    serif;
+  margin: 21px 0;
+}
+.lily-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #7b8865;
+}
+.receipt {
+  width: 425px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 35px 33px;
+  box-shadow: 0 20px 70px #14251966;
+}
+.receipt h2 {
+  font-size: 38px;
+}
+.receipt > p {
+  font-size: 11px;
+  color: #7e836f;
+  line-height: 1.7;
+}
+.receipt .eyebrow {
+  justify-content: center;
+}
+.receipt-lines {
+  text-align: left;
+  border-top: 1px dashed #b6bba9;
+  border-bottom: 1px dashed #b6bba9;
+  padding: 14px 0;
+  margin: 23px 0 13px;
+  font-family: monospace;
+}
+.receipt-lines > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  line-height: 1.6;
+  font-size: 11px;
+  margin: 7px 0;
+}
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+}
+.receipt-stats {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 24px 0;
+  padding: 18px 0;
+  border-top: 1px solid #dddccd;
+  border-bottom: 1px solid #dddccd;
+}
+.receipt-stats strong {
+  display: block;
+  font:
+    27px Georgia,
+    serif;
+  font-weight: 400;
+}
+.receipt-stats small {
+  font-size: 8px;
+  letter-spacing: 0.09em;
+  color: #92947d;
+}
+.receipt .primary {
+  margin: 22px auto 0;
+  justify-content: center;
+  width: 100%;
+}
+.controls-grid {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 13px;
+  margin: 24px 0;
+  font-size: 12px;
+  align-items: center;
+}
+.controls-grid kbd {
+  justify-self: start;
+}
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 0;
+  font-size: 12px;
+  color: #647156;
+}
+.setting select {
+  padding: 8px;
+  border: 1px solid #d4d4c4;
+  background: #f7f4e8;
+  color: #46553a;
+  border-radius: 3px;
+}
+#scoop-ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+.scoop-top {
+  position: absolute;
+  top: 100px;
+  left: 32px;
+  padding: 19px 24px;
+  background: #fffaf0ef;
+  border: 1px solid #fff9;
+  border-radius: 7px;
+}
+.scoop-top .eyebrow {
+  font-size: 8px;
+}
+.scoop-top h2 {
+  font:
+    36px "Libre Caslon Display",
+    Georgia,
+    serif;
+  margin: 8px 0;
+}
+.scoop-top p {
+  font-size: 11px;
+  color: #7a806d;
+}
+.scoop-instructions {
+  position: absolute;
+  bottom: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fffaf0f0;
+  padding: 16px 23px;
+  border-radius: 7px;
+  min-width: 420px;
+}
+.scoop-instructions > span {
+  width: 32px;
+  height: 32px;
+  background: #b18a3d;
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: Georgia, serif;
+}
+.scoop-instructions strong {
+  display: block;
+  font-size: 13px;
+}
+.scoop-instructions small {
+  display: block;
+  font-size: 10px;
+  color: #7d806c;
+  margin-top: 6px;
+  max-width: 390px;
+}
+.scoop-bottom {
+  position: absolute;
+  left: 32px;
+  bottom: 30px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scoop-bottom button {
+  pointer-events: auto;
+}
+.scoop-bottom kbd {
+  margin-left: 15px;
+}
+.scoop-bottom > span {
+  font-size: 12px;
+  background: #fffaf0ef;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+body.scooping #crosshair,
+body.scooping #map-card,
+body.scooping #bottom-bar {
+  display: none;
+}
+#fatal {
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  padding: 8%;
+  z-index: 100;
+}
+#fatal h1 {
+  font-size: 48px;
+}
+#fatal p {
+  max-width: 600px;
+  line-height: 1.8;
+}
+#fatal button {
+  margin-top: 20px;
+  padding: 15px 25px;
+}
+a {
+  color: var(--red);
+}
+.credits {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #8b8f7c;
+  margin-top: 24px;
+}
+.queue-count {
+  font:
+    42px Georgia,
+    serif;
+  color: #8c1515;
+  margin: 10px 0;
+}
+.motion-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+@media (max-height: 760px) {
+  .intro {
+    transform: translateY(-42%);
+  }
+  h1 {
+    font-size: 70px;
+    margin: 20px 0;
+  }
+  .lunch-ticket {
+    margin: 22px 0;
+  }
+  .intro-controls {
+    margin-top: 24px;
+  }
+  .intro .lede {
+    font-size: 13px;
+  }
+  .status-card {
+    padding: 14px 17px;
+  }
+  .panel {
+    max-height: 88vh;
+  }
+}
+@media (max-width: 850px) {
+  .intro {
+    left: 6%;
+    width: 380px;
+  }
+  h1 {
+    font-size: 72px;
+  }
+  .day {
+    display: none;
+  }
+  #map-card {
+    width: 154px;
+  }
+  #map {
+    width: 128px;
+    height: 102px;
+  }
+  #bottom-bar {
+    gap: 9px;
+    font-size: 8px;
+  }
+  #bottom-bar span:nth-child(2) {
+    display: none;
+  }
+  .status-card {
+    width: 220px;
+  }
+  .playing #brand div > span {
+    display: none;
+  }
+}
+@media (max-width: 580px) {
+  #brand {
+    left: 22px;
+    top: 20px;
+  }
+  #brand div > span {
+    font-size: 6px;
+  }
+  #top-actions {
+    right: 15px;
+    top: 22px;
+  }
+  .intro {
+    left: 27px;
+    width: calc(100% - 50px);
+  }
+  h1 {
+    font-size: 65px;
+  }
+  #vignette {
+    background: #fffaf0d9;
+  }
+  #welcome-note {
+    font-size: 7px;
+    left: 25px;
+  }
+  .status-card {
+    width: 170px;
+    right: 12px;
+  }
+  .status-row > span:last-child {
+    font-size: 12px;
+  }
+  .status-card p {
+    font-size: 9px;
+  }
+  #bottom-bar {
+    bottom: 14px;
+    left: 15px;
+    gap: 8px;
+  }
+  #bottom-bar span:nth-child(4) {
+    display: none;
+  }
+  #map-card {
+    display: none;
+  }
+  .panel {
+    padding: 25px;
+  }
+  .scoop-top {
+    top: 94px;
+    left: 14px;
+    padding: 15px;
+  }
+  .scoop-top h2 {
+    font-size: 27px;
+  }
+  .scoop-top .eyebrow {
+    font-size: 6px;
+  }
+  .scoop-top p {
+    font-size: 9px;
+  }
+  .scoop-instructions {
+    min-width: 0;
+    width: 90%;
+    bottom: 107px;
+  }
+  .scoop-bottom {
+    left: 15px;
+    right: 15px;
+    bottom: 30px;
+  }
+  .scoop-bottom > span {
+    font-size: 9px;
+  }
+  .scoop-bottom button {
+    font-size: 10px;
+    padding: 12px;
+  }
+  #hud .status-card {
+    top: 88px;
+  }
+  .scooping #hud .status-card {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
