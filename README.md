@@ -8,9 +8,9 @@ Read the [original prompt and design conversation](docs/design-conversation.md) 
 
 ## Play in your browser
 
-GitHub Pages deployment is prepared. Once Pages is enabled and the first deployment succeeds, the game will be available at **[gsbdarc.github.io/corn-scooping-game](https://gsbdarc.github.io/corn-scooping-game/)**. Players can open that link and start playing without installing anything.
+**[Play A Little Lunch at Arbuckle](https://gsbdarc.github.io/corn-scooping-game/)** — open the link in your desktop browser, wait for the characters to load, and start playing. No installation or GitHub account is needed.
 
-The repository is currently private, and its organization's GitHub Free plan does not support Pages for private repositories. Publishing requires making the repository public or using an organization plan that supports Pages for private repositories. See [GitHub's Pages requirements](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
+The game is hosted on GitHub Pages and updates automatically when changes are pushed to `main`.
 
 ## Install and launch
 
