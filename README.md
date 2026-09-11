@@ -6,6 +6,12 @@ A first-person browser game inspired by Stanford GSB’s Arbuckle Dining Pavilio
 
 Read the [original prompt and design conversation](docs/design-conversation.md) for the initial request and the answers that shaped the game.
 
+## Play in your browser
+
+**[Play A Little Lunch at Arbuckle](https://gsbdarc.github.io/corn-scooping-game/)** — open the link in your desktop browser, wait for the characters to load, and start playing. No installation or GitHub account is needed.
+
+The game is hosted on GitHub Pages and updates automatically when changes are pushed to `main`.
+
 ## Install and launch
 
 You need a desktop or laptop, a keyboard, and a browser with WebGL 2 support. The game has been tested in Google Chrome on macOS. A mouse or trackpad provides manual scooping; keyboard alternatives are also available. Touchscreen-only play is not implemented.
@@ -13,7 +19,7 @@ You need a desktop or laptop, a keyboard, and a browser with WebGL 2 support. Th
 Install [Node.js](https://nodejs.org/) version **22.12 or newer** (npm is included) and [Git](https://git-scm.com/downloads). Then open Terminal on macOS/Linux or PowerShell on Windows and run:
 
 ```sh
-git clone https://github.com/mpj2104/corn-scooping-game.git
+git clone https://github.com/gsbdarc/corn-scooping-game.git
 cd corn-scooping-game
 npm ci
 npm run dev
@@ -63,7 +69,23 @@ npm run preview
 
 Open the preview URL printed in the terminal, normally **http://localhost:4173/**. The generated **`dist/`** folder contains the complete website. To publish it, use a static host with `npm ci && npm run build` as the build command and `dist` as the publish directory, or upload the contents of an already-built `dist/` folder.
 
-Host the build at the root of its website: asset URLs currently start with `/assets/`. Deploying under a path such as `/corn-scooping-game/` requires changes to those URLs; it is not configured for GitHub Pages project paths. Creating or cloning this repository does not automatically publish a playable website.
+The default build serves from the root of a website. For the GitHub Pages repository path, use the dedicated commands:
+
+```sh
+npm run build:pages
+npm run preview:pages
+```
+
+Open **http://localhost:4173/corn-scooping-game/**. This build sets the `/corn-scooping-game/` prefix for scripts, models, textures, fonts, and the credits page. If you rename the repository, update the Pages base path in `vite.config.js`.
+
+### Publish with GitHub Pages
+
+1. Ensure the repository's visibility and organization plan support GitHub Pages.
+2. Open **Settings → Pages** in the repository and choose **GitHub Actions** as the publishing source.
+3. Open **Actions → Deploy game to GitHub Pages → Run workflow** and select `main`.
+4. After the workflow succeeds, open the deployment URL shown in the workflow or on the Pages settings page.
+
+The [deployment workflow](.github/workflows/deploy-pages.yml) installs the locked dependencies, runs the game-state tests, builds the game, and publishes only `dist/`. Subsequent pushes to `main` automatically update the site. No deployment secrets are needed.
 
 Use an HTTP(S) server. Double-clicking `index.html` as a `file://` URL will not load the 3D assets reliably. On the same Wi-Fi network, other computers can also use the network URL printed by `npm run dev` while that server is running; `localhost` works only on your own computer.
 
@@ -74,7 +96,7 @@ Use an HTTP(S) server. Double-clicking `index.html` as a `file://` URL will not 
 - **Slow graphics:** open **?** or press **Esc** and select the lower graphics setting. You can also reduce movement sway in that panel.
 - **Mouse look is inactive:** start or resume the game and click inside the 3D scene. Arrow keys also turn the player.
 - **Corn will not dispense:** check your remaining budget, move the scoop over the tray, and hold the button until it fills. Finish the current pour before trying another scoop or leaving.
-- **A hosted game cannot find its assets:** check that the complete `dist/assets/` folder was uploaded and the website is hosted at its root URL.
+- **A hosted game cannot find its assets:** check that the complete `dist/assets/` folder was uploaded. Use `npm run build:pages` for the GitHub Pages project URL, or `npm run build` for a website hosted at its root URL.
 
 ## Validation
 
@@ -95,6 +117,8 @@ npm run test:browser
 The browser suite checks movement and counter collisions, all menus, budget limits, returning items, manually controlled corn scoops, spills and overflowing piles, the checkout queue, Lilybeth’s greeting, payment, and replay. Screenshots are written to the ignored `references/` directory.
 
 After building, `node scripts/inspect-game.mjs --production` starts its own temporary preview server on port 4173 and checks asset loading, starting, walking, pausing, and resuming in Chrome. Leave port 4173 free when running that command.
+
+For a Pages build, run `npm run build:pages` followed by `node scripts/inspect-game.mjs --production --pages`. To check the deployed site, run `node scripts/inspect-game.mjs --url=https://gsbdarc.github.io/corn-scooping-game/`. These checks also verify font loading and the credits link.
 
 ## Implementation and references
 

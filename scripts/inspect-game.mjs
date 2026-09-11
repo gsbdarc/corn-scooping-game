@@ -4,11 +4,18 @@ import assert from "node:assert/strict";
 
 await mkdir("references", { recursive: true });
 
-if (process.argv.includes("--production")) {
+const liveUrl = process.argv.find((arg) => arg.startsWith("--url="))?.slice(6);
+
+if (process.argv.includes("--production") || liveUrl) {
   const { preview } = await import("vite");
-  const server = await preview({
-    preview: { host: "127.0.0.1", port: 4173, strictPort: true },
-  });
+  const server = liveUrl
+    ? null
+    : await preview({
+        mode: process.argv.includes("--pages") ? "pages" : "production",
+        preview: { host: "127.0.0.1", port: 4173, strictPort: true },
+      });
+  const gameUrl =
+    liveUrl || new URL(server.config.base, "http://127.0.0.1:4173").href;
   const browser = await chromium.launch({ headless: true, channel: "chrome" });
   try {
     const page = await browser.newPage({
@@ -21,7 +28,7 @@ if (process.argv.includes("--production")) {
       if (response.status() >= 400)
         errors.push(`${response.status()} ${response.url()}`);
     });
-    await page.goto("http://127.0.0.1:4173");
+    await page.goto(gameUrl);
     await page.waitForFunction(
       () => document.querySelector("#start")?.disabled === false,
       null,
@@ -33,6 +40,28 @@ if (process.argv.includes("--production")) {
     await page.keyboard.up("w");
     await page.keyboard.press("Escape");
     await page.locator("#quality").waitFor({ state: "visible" });
+    const creditsUrl = await page
+      .getByRole("link", { name: "References & credits" })
+      .getAttribute("href");
+    assert.equal(
+      new URL(creditsUrl, gameUrl).href,
+      new URL("credits.html", gameUrl).href,
+    );
+    const credits = await page.request.get(new URL(creditsUrl, gameUrl).href);
+    assert.equal(credits.status(), 200);
+    assert.match(
+      await credits.text(),
+      /References &amp; credits|References & credits/,
+    );
+    await page.evaluate(() => document.fonts.ready);
+    assert.equal(
+      await page.evaluate(
+        () =>
+          document.fonts.check('16px "DM Sans"') &&
+          document.fonts.check('48px "Libre Caslon Display"'),
+      ),
+      true,
+    );
     await page.locator('[data-action="resume"]').first().click();
     await page.screenshot({ path: "references/production-render.png" });
     assert.equal(
@@ -41,13 +70,14 @@ if (process.argv.includes("--production")) {
     );
     assert.deepEqual(errors, []);
     console.log(
-      "Production smoke passed: assets loaded, start/walk/pause/resume work, no debug interface or browser errors.",
+      `Production smoke passed at ${gameUrl}: assets, fonts, credits, start/walk/pause/resume work, no debug interface or browser errors.`,
     );
   } finally {
     await browser.close();
-    await new Promise((resolve, reject) =>
-      server.httpServer.close((error) => (error ? reject(error) : resolve())),
-    );
+    if (server)
+      await new Promise((resolve, reject) =>
+        server.httpServer.close((error) => (error ? reject(error) : resolve())),
+      );
   }
   process.exit(0);
 }
