@@ -3,6 +3,19 @@ import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
 import { clone } from "three/addons/utils/SkeletonUtils.js";
 import { box, mat, sign, contactShadow } from "./geometry.js";
 
+class CharacterTextureLoader extends THREE.TextureLoader {
+  load(url, onLoad, onProgress, onError) {
+    // The FBX files reference extra maps, but the materials below use only color.
+    // Leave unused maps empty instead of requesting files we do not distribute.
+    if (/_(normal|specular)\.(tga|webp)$/i.test(url)) {
+      const texture = new THREE.Texture();
+      if (onLoad) queueMicrotask(() => onLoad(texture));
+      return texture;
+    }
+    return super.load(url, onLoad, onProgress, onError);
+  }
+}
+
 // Aim an existing joint toward a world-space target while preserving bone length.
 function aimBone(bone, child, target) {
   if (!bone || !child) return;
@@ -25,7 +38,7 @@ function aimBone(bone, child, target) {
 export async function createPeople(scene, seats) {
   const manager = new THREE.LoadingManager();
   const loader = new FBXLoader(manager);
-  manager.addHandler(/\.tga$/i, new THREE.TextureLoader(manager));
+  manager.addHandler(/\.(tga|webp)$/i, new CharacterTextureLoader(manager));
   manager.setURLModifier((url) => {
     if (/\.(tga|webp)$/i.test(url)) {
       const file = url

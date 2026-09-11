@@ -27,6 +27,13 @@ if (process.argv.includes("--production") || liveUrl) {
     page.on("response", (response) => {
       if (response.status() >= 400)
         errors.push(`${response.status()} ${response.url()}`);
+      // A preview server may return index.html with status 200 for missing assets.
+      if (
+        /\.(webp|jpg|png|ttf|fbx)$/i.test(new URL(response.url()).pathname) &&
+        response.headers()["content-type"]?.includes("text/html")
+      ) {
+        errors.push(`Asset returned HTML: ${response.url()}`);
+      }
     });
     await page.goto(gameUrl);
     await page.waitForFunction(
